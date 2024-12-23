@@ -63,3 +63,7 @@ def test_delete_book_from_favorites(self, collector):
 def test_get_list_of_favorites_books(self, collector):
 ```
 ---
+13. Тест проверяет возвращение словаря books_genre :
+```
+def test_get_books_genre(self, collector):
+```
