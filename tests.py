@@ -1,4 +1,5 @@
 import pytest
+import random
 from main import BooksCollector
 class TestBooksCollector:
     def test_add_new_book_add_two_books(self):
@@ -21,6 +22,7 @@ class TestBooksCollector:
         assert not collector.add_new_book(book)
 
     def test_set_book_genre_valid_name(self, collector):
+        collector = BooksCollector()
         collector.add_new_book('Собака Баскервиллей')
         collector.set_book_genre('Собака Баскервиллей', 'Детективы')
         assert collector.books_genre['Собака Баскервиллей'] == 'Детективы'
@@ -34,11 +36,15 @@ class TestBooksCollector:
 
 
     def test_get_book_genre_return_right_name(self, collector):
+        collector = BooksCollector()
         collector.add_new_book('Хроники Нарнии')
         collector.set_book_genre('Хроники Нарнии', 'Фантастика')
         assert collector.get_book_genre('Хроники Нарнии') == 'Фантастика'
 
+
+
     def test_get_books_with_specific_genre(self, collector):
+        collector = BooksCollector()
         collector.add_new_book('Эй, Арнольд!')
         collector.set_book_genre('Эй, Арнольд!', 'Мультфильмы')
         assert collector.get_books_with_specific_genre('Мультфильмы') \
@@ -90,3 +96,12 @@ class TestBooksCollector:
         collector.add_new_book('Harry Potter')
         collector.add_book_in_favorites('Harry Potter')
         assert collector.get_list_of_favorites_books() == ['Harry Potter']
+
+    def test_get_books_genre(self, collector):
+        collector = BooksCollector()
+        books = ['Бродяги Дхармы', 'Анна Каренина', '1984', 'Митина любовь']
+        for name in books:
+            collector.add_new_book(name)
+            random_book = random.choice(books)
+            assert random_book in collector.get_books_genre() \
+                   and type(collector.get_books_genre()) == dict
